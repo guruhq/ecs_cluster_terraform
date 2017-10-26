@@ -14,7 +14,7 @@ data "template_file" "container_instance_cloud_config" {
 }
 
 module "container_service_cluster" {
-  source = "github.com/kgirthofer/ecs-cluster-tf?ref=0.1.5"
+  source = "github.com/kgirthofer/ecs_cluster_tf?ref=0.1.0"
 
   vpc_id        = "vpc-3b57ce53"
   ami_id        = "ami-04351e12"
