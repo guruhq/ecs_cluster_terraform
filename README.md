@@ -30,6 +30,8 @@ module "container_service_cluster" {
   min_size                  = "0"
   max_size                  = "1"
 
+  security_groups = [...]
+ 
   enabled_metrics = [
     "GroupMinSize",
     "GroupMaxSize",
@@ -45,6 +47,14 @@ module "container_service_cluster" {
 
   project     = "Something"
   environment = "Staging"
+}
+// If you want to remote save your state - plop this in
+terraform {
+  backend "s3" {
+    bucket = "my-terraform-state"
+    key    = "dev/terraform.tfstate"
+    region = "us-west-2"
+  }
 }
 ```
 
@@ -62,6 +72,7 @@ module "container_service_cluster" {
 - `min_size` - Minimum number of EC2 instances in cluster (default: `0`)
 - `max_size` - Maximum number of EC2 instances in cluster (default: `1`)
 - `enabled_metrics` - A list of metrics to gather for the cluster
+- `security_groups` - A list of security groups
 - `private_subnet_ids` - A list of private subnet IDs to launch cluster instances
 - `scale_up_cooldown_seconds` - Number of seconds before allowing another scale up activity (default: `300`)
 - `scale_down_cooldown_seconds` - Number of seconds before allowing another scale down activity (default: `300`)
