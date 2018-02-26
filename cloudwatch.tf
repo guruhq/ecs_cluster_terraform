@@ -37,7 +37,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_high_cpu" {
 
 resource "aws_cloudwatch_metric_alarm" "container_instance_low_cpu" {
   alarm_name          = "alarm${var.environment}ClusterCPUReservationLow"
-  comparison_operator = "LessThanxThreshold"
+  comparison_operator = "LessThanThreshold"
   evaluation_periods  = "${var.low_cpu_evaluation_periods}"
   metric_name         = "CPUReservation"
   namespace           = "AWS/ECS"
