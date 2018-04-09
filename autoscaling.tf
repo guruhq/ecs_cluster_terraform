@@ -56,7 +56,7 @@ resource "aws_autoscaling_group" "container_instance" {
 
   tag {
     key                 = "Name"
-    value               = "ContainerInstance"
+    value               = "#{var.environment}-ContainerInstance"
     propagate_at_launch = true
   }
 
@@ -70,6 +70,12 @@ resource "aws_autoscaling_group" "container_instance" {
     key                 = "Environment"
     value               = "${var.environment}"
     propagate_at_launch = true
+  }
+  
+  tag {
+    key                 = "Managed By"
+    value               = "Terraform"
+    propogate_at_launch = true
   }
 }
 
