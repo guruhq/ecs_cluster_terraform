@@ -75,7 +75,7 @@ resource "aws_autoscaling_group" "container_instance" {
   tag {
     key                 = "Managed By"
     value               = "Terraform"
-    propogate_at_launch = true
+    propagate_at_launch = true
   }
 }
 
