@@ -58,6 +58,7 @@ resource "aws_autoscaling_group" "container_instance" {
     key                 = "Name"
     value               = "${var.environment}-ContainerInstance"
     propagate_at_launch = true
+    inspector_scanned   = "${var.inspector_scanned}" 
   }
 
   tag {

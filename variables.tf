@@ -125,3 +125,7 @@ variable "low_memory_period_seconds" {
 variable "low_memory_threshold_percent" {
   default = "20"
 }
+
+variable "inspector_scanned" {
+  default = true
+}
