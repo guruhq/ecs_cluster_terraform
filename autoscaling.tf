@@ -58,7 +58,6 @@ resource "aws_autoscaling_group" "container_instance" {
     key                 = "Name"
     value               = "${var.environment}-ContainerInstance"
     propagate_at_launch = true
-    inspector_scanned   = "${var.inspector_scanned}" 
   }
 
   tag {
@@ -76,6 +75,12 @@ resource "aws_autoscaling_group" "container_instance" {
   tag {
     key                 = "Managed By"
     value               = "Terraform"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Inspector Scan"
+    value               = "${var.inspector_scanned}"
     propagate_at_launch = true
   }
 }
