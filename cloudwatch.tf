@@ -2,7 +2,7 @@
 # CloudWatch resources
 #
 resource "aws_autoscaling_policy" "container_instance_scale_up" {
-  name                   = "asgScalingPolicy${var.environment}ClusterScaleUp"
+  name                   = "asgScalingPolicy${var.environment}${var.project}ClusterScaleUp"
   scaling_adjustment     = 3
   adjustment_type        = "ChangeInCapacity"
   cooldown               = "${var.scale_up_cooldown_seconds}"
@@ -10,7 +10,7 @@ resource "aws_autoscaling_policy" "container_instance_scale_up" {
 }
 
 resource "aws_autoscaling_policy" "container_instance_scale_down" {
-  name                   = "asgScalingPolicy${var.environment}ClusterScaleDown"
+  name                   = "asgScalingPolicy${var.environment}${var.project}ClusterScaleDown"
   scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
   cooldown               = "${var.scale_down_cooldown_seconds}"
@@ -18,7 +18,7 @@ resource "aws_autoscaling_policy" "container_instance_scale_down" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "container_instance_high_cpu" {
-  alarm_name          = "alarm${var.environment}ClusterCPUReservationHigh"
+  alarm_name          = "alarm${var.environment}${var.project}ClusterCPUReservationHigh"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "${var.high_cpu_evaluation_periods}"
   metric_name         = "CPUReservation"
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_high_cpu" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "container_instance_low_cpu" {
-  alarm_name          = "alarm${var.environment}ClusterCPUReservationLow"
+  alarm_name          = "alarm${var.environment}${var.project}ClusterCPUReservationLow"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "${var.low_cpu_evaluation_periods}"
   metric_name         = "CPUReservation"
@@ -56,7 +56,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_low_cpu" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "container_instance_high_memory" {
-  alarm_name          = "alarm${var.environment}ClusterMemoryReservationHigh"
+  alarm_name          = "alarm${var.environment}${var.project}ClusterMemoryReservationHigh"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "${var.high_memory_evaluation_periods}"
   metric_name         = "MemoryReservation"
@@ -76,7 +76,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_high_memory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "container_instance_low_memory" {
-  alarm_name          = "alarm${var.environment}ClusterMemoryReservationLow"
+  alarm_name          = "alarm${var.environment}${var.project}ClusterMemoryReservationLow"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "${var.low_memory_evaluation_periods}"
   metric_name         = "MemoryReservation"

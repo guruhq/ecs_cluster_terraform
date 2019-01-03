@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "container_instance_ec2_assume_role" {
 }
 
 resource "aws_iam_role" "container_instance_ec2" {
-  name               = "${var.environment}ContainerInstanceProfile"
+  name               = "${var.environment}${var.project}ContainerInstanceProfile"
   assume_role_policy = "${data.aws_iam_policy_document.container_instance_ec2_assume_role.json}"
 }
 
@@ -47,7 +47,7 @@ data "aws_iam_policy_document" "ecs_assume_role" {
 }
 
 resource "aws_iam_role" "ecs_service_role" {
-  name               = "ecs${var.environment}ServiceRole"
+  name               = "ecs${var.environment}${var.project}ServiceRole"
   assume_role_policy = "${data.aws_iam_policy_document.ecs_assume_role.json}"
 }
 
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "ecs_autoscale_assume_role" {
 }
 
 resource "aws_iam_role" "ecs_autoscale_role" {
-  name               = "ecs${var.environment}AutoscaleRole"
+  name               = "ecs${var.environment}${var.project}AutoscaleRole"
   assume_role_policy = "${data.aws_iam_policy_document.ecs_autoscale_assume_role.json}"
 }
 

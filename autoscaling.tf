@@ -43,7 +43,7 @@ resource "aws_launch_configuration" "container_instance" {
 }
 
 resource "aws_autoscaling_group" "container_instance" {
-  name                      = "asg${var.environment}ContainerInstance"
+  name                      = "asg${var.environment}${var.project}ContainerInstance"
   launch_configuration      = "${aws_launch_configuration.container_instance.name}"
   health_check_grace_period = "${var.health_check_grace_period}"
   health_check_type         = "EC2"
@@ -56,7 +56,7 @@ resource "aws_autoscaling_group" "container_instance" {
 
   tag {
     key                 = "Name"
-    value               = "${var.environment}-ContainerInstance"
+    value               = "${var.environment}-${var.project}-ContainerInstance"
     propagate_at_launch = true
   }
 
