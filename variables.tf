@@ -28,6 +28,10 @@ variable "root_block_device_size" {
   default = "8"
 }
 
+variable "root_block_device_encrypted" {
+  default = true
+}
+
 variable "instance_type" {
   default = "t2.micro"
 }
