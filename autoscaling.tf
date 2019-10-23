@@ -32,6 +32,7 @@ resource "aws_launch_configuration" "container_instance" {
   root_block_device {
     volume_type = "${var.root_block_device_type}"
     volume_size = "${var.root_block_device_size}"
+    encrypted   = "${var.root_block_device_encrypted}"
   }
 
   iam_instance_profile = "${aws_iam_instance_profile.container_instance.name}"
