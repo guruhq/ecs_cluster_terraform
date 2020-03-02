@@ -52,8 +52,8 @@ resource "aws_autoscaling_group" "container_instance" {
   termination_policies      = ["OldestLaunchConfiguration", "Default"]
   min_size                  = "${var.min_size}"
   max_size                  = "${var.max_size}"
-  enabled_metrics           = ["${var.enabled_metrics}"]
-  vpc_zone_identifier       = ["${var.private_subnet_ids}"]
+  enabled_metrics           = "${var.enabled_metrics}"
+  vpc_zone_identifier       = "${var.private_subnet_ids}"
 
 
   tags = [
