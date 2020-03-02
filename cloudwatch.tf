@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_high_cpu" {
   statistic           = "Maximum"
   threshold           = "${var.high_cpu_threshold_percent}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${aws_ecs_cluster.container_instance.name}"
   }
 
@@ -45,7 +45,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_low_cpu" {
   statistic           = "Maximum"
   threshold           = "${var.low_cpu_threshold_percent}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${aws_ecs_cluster.container_instance.name}"
   }
 
@@ -65,7 +65,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_high_memory" {
   statistic           = "Maximum"
   threshold           = "${var.high_memory_threshold_percent}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${aws_ecs_cluster.container_instance.name}"
   }
 
@@ -85,7 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "container_instance_low_memory" {
   statistic           = "Maximum"
   threshold           = "${var.low_memory_threshold_percent}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${aws_ecs_cluster.container_instance.name}"
   }
 
