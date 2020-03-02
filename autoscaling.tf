@@ -4,7 +4,7 @@
 data "template_file" "container_instance_base_cloud_config" {
   template = "${file("${path.module}/cloud-config/base-container-instance.yml.tpl")}"
 
-  vars {
+  vars = {
     ecs_cluster_name = "${aws_ecs_cluster.container_instance.name}"
   }
 }
@@ -55,31 +55,31 @@ resource "aws_autoscaling_group" "container_instance" {
   enabled_metrics           = ["${var.enabled_metrics}"]
   vpc_zone_identifier       = ["${var.private_subnet_ids}"]
 
-  tag {
+  tag = {
     key                 = "Name"
     value               = "${var.environment}-${var.project}-ContainerInstance"
     propagate_at_launch = true
   }
 
-  tag {
+  tag = {
     key                 = "Project"
     value               = "${var.project}"
     propagate_at_launch = true
   }
 
-  tag {
+  tag = {
     key                 = "Environment"
     value               = "${var.environment}"
     propagate_at_launch = true
   }
   
-  tag {
+  tag = {
     key                 = "Managed By"
     value               = "Terraform"
     propagate_at_launch = true
   }
 
-  tag {
+  tag = {
     key                 = "Inspector Scan"
     value               = "${var.inspector_scanned}"
     propagate_at_launch = true

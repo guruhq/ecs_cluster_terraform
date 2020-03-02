@@ -8,7 +8,7 @@ A Terraform module to create an Amazon Web Services (AWS) EC2 Container Service 
 data "template_file" "container_instance_cloud_config" {
   template = "${file("container-instance.yml.tpl")}"
  
-  vars {
+  vars = {
     environment = "${var.environment}"
   }
 }
