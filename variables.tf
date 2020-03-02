@@ -57,7 +57,6 @@ variable "max_size" {
 }
 
 variable "security_groups" {
-  type = "list"
 }
 
 variable "enabled_metrics" {
