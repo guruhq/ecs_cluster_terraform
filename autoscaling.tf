@@ -55,34 +55,33 @@ resource "aws_autoscaling_group" "container_instance" {
   enabled_metrics           = ["${var.enabled_metrics}"]
   vpc_zone_identifier       = ["${var.private_subnet_ids}"]
 
-  tag = {
-    key                 = "Name"
-    value               = "${var.environment}-${var.project}-ContainerInstance"
-    propagate_at_launch = true
-  }
 
-  tag = {
-    key                 = "Project"
-    value               = "${var.project}"
-    propagate_at_launch = true
-  }
-
-  tag = {
-    key                 = "Environment"
-    value               = "${var.environment}"
-    propagate_at_launch = true
-  }
-  
-  tag = {
-    key                 = "Managed By"
-    value               = "Terraform"
-    propagate_at_launch = true
-  }
-
-  tag = {
-    key                 = "Inspector Scan"
-    value               = "${var.inspector_scanned}"
-    propagate_at_launch = true
-  }
+  tags = [
+    {
+      key                 = "Name"
+      value               = "${var.environment}-${var.project}-ContainerInstance"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "Project"
+      value               = "${var.project}"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "Environment"
+      value               = "${var.environment}"
+      propagate_at_launch = true
+    },
+    { 
+      key                 = "Managed By"
+      value               = "Terraform"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "Inspector Scan"
+      value               = "${var.inspector_scanned}"
+      propagate_at_launch = true
+    }
+  ]
 }
 
