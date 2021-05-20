@@ -39,7 +39,7 @@ resource "aws_launch_configuration" "container_instance" {
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
-  security_groups      = ["${var.security_groups}"]
+  security_groups      = var.security_groups
   user_data            = "${data.template_cloudinit_config.container_instance_cloud_config.rendered}"
 }
 
