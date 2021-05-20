@@ -48,7 +48,7 @@ variable "max_size" {
 }
 
 variable "security_groups" {
-  type = "list"
+  type = list(string)
 }
 
 variable "enabled_metrics" {

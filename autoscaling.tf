@@ -4,7 +4,7 @@
 data "template_file" "container_instance_base_cloud_config" {
   template = "${file("${path.module}/cloud-config/base-container-instance.yml.tpl")}"
 
-  vars {
+  vars = {
     ecs_cluster_name = "${aws_ecs_cluster.container_instance.name}"
   }
 }
@@ -38,7 +38,7 @@ resource "aws_launch_configuration" "container_instance" {
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
-  security_groups      = ["${var.security_groups}"]
+  security_groups      = var.security_groups
   user_data            = "${data.template_cloudinit_config.container_instance_cloud_config.rendered}"
 }
 
@@ -51,8 +51,8 @@ resource "aws_autoscaling_group" "container_instance" {
   termination_policies      = ["OldestLaunchConfiguration", "Default"]
   min_size                  = "${var.min_size}"
   max_size                  = "${var.max_size}"
-  enabled_metrics           = ["${var.enabled_metrics}"]
-  vpc_zone_identifier       = ["${var.private_subnet_ids}"]
+  enabled_metrics           = var.enabled_metrics
+  vpc_zone_identifier       = var.private_subnet_ids
 
   tag {
     key                 = "Name"
