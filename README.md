@@ -5,22 +5,16 @@ A Terraform module to create an Amazon Web Services (AWS) EC2 Container Service 
 ## Usage
 
 ```hcl
-data "template_file" "container_instance_cloud_config" {
-  template = "${file("container-instance.yml.tpl")}"
- 
-  vars {
-    environment = "${var.environment}"
-  }
-}
-
 module "container_service_cluster" {
-  source = "github.com/kgirthofer/ecs_cluster_tf?ref=0.1.0"
+  source = "github.com/kgirthofer/ecs_cluster_tf?ref=0.2.2"
 
   vpc_id        = "vpc-3b57ce53"
   ami_id        = "ami-04351e12"
   instance_type = "t2.micro"
   key_name      = "prod"
-  cloud_config  = "${data.template_file.container_instance_cloud_config.rendered}"
+  cloud_config  = templatefile("container-instance.yml.tpl"), {
+    environment = var.environment
+  })
 
   root_block_device_type = "gp2"
   root_block_device_size = "10"

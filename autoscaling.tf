@@ -1,21 +1,15 @@
 #
 # AutoScaling resources
 #
-data "template_file" "container_instance_base_cloud_config" {
-  template = "${file("${path.module}/cloud-config/base-container-instance.yml.tpl")}"
-
-  vars = {
-    ecs_cluster_name = "${aws_ecs_cluster.container_instance.name}"
-  }
-}
-
 data "template_cloudinit_config" "container_instance_cloud_config" {
   gzip          = false
   base64_encode = false
 
   part {
     content_type = "text/cloud-config"
-    content      = "${data.template_file.container_instance_base_cloud_config.rendered}"
+    content      = templatefile("${path.module}/cloud-config/base-container-instance.yml.tpl", {
+      ecs_cluster_name = aws_ecs_cluster.container_instance.name
+    })
   }
 
   part {
