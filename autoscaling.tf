@@ -1,23 +1,6 @@
 #
 # AutoScaling resources
 #
-data "template_cloudinit_config" "container_instance_cloud_config" {
-  gzip          = false
-  base64_encode = false
-
-  part {
-    content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/cloud-config/base-container-instance.yml.tpl", {
-      ecs_cluster_name = aws_ecs_cluster.container_instance.name
-    })
-  }
-
-  part {
-    content_type = "text/cloud-config"
-    content      = "${var.cloud_config}"
-  }
-}
-
 resource "aws_launch_configuration" "container_instance" {
   lifecycle {
     create_before_destroy = true
@@ -34,7 +17,10 @@ resource "aws_launch_configuration" "container_instance" {
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
   security_groups      = var.security_groups
-  user_data            = "${data.template_cloudinit_config.container_instance_cloud_config.rendered}"
+  user_data            = templatefile("${path.module}/cloud-config/base-container-instance.yml.tpl", {
+    ecs_cluster_name = aws_ecs_cluster.container_instance.name
+    cloud_config     = var.cloud_config
+  })
 }
 
 resource "aws_autoscaling_group" "container_instance" {
